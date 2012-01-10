@@ -2,9 +2,7 @@
 #include "ui_mainwindow.h"
 #include <QDebug>
 #include <QTableView>
-#include <UngroupProxyModel.h>
 #include<htflatmodelprototype.h>
-#include <RowsJoinerProxy.h>
 #include <simpletreetotableproxy.h>
 #include <tableviewspancontroller.h>
 MainWindow::MainWindow(QWidget *parent) :
@@ -57,17 +55,13 @@ MainWindow::MainWindow(QWidget *parent) :
     SimpleTreeToTableProxy * sttProxy=new SimpleTreeToTableProxy(this);
     sttProxy->setSourceModel(m_model);
     flatModel->setRootItem(m_rootItem);
-    QTableView * tv=new QTableView();
+    QTableView * tv=new QTableView(ui->centralWidget);
+    ui->centralWidget->layout()->addWidget(tv);
     TableViewSpanController * spanControl=new TableViewSpanController(this);
     tv->setModel(sttProxy);
     spanControl->setTableView(tv);
     tv->show();
     spanControl->updateSpan();
-
-
-
-
-
 
 }
 
