@@ -5,7 +5,7 @@ class MtTemplateItem;
 class MtHeader;
 class MtSubHeader;
 class MtFooter;
-
+class MtTemplate;
 
 
 class MtTemplateItem
@@ -30,6 +30,7 @@ class MtTemplateItem
         bool hasChilds() const;
 
         const MtTemplateItem * parent() const;
+        const MtTemplate * parentTemplate() const;
     protected:
         typedef QList<MtTemplateItem *> MtTemplateItems;
         MtTemplateItems & childs();
@@ -38,6 +39,7 @@ class MtTemplateItem
     private:
         MtTemplateItems m_childs;
         MtTemplateItem * m_parent;
+        MtTemplate * m_parentTemplate;
 
 };
 
@@ -93,7 +95,9 @@ class MtHeader:public MtFooterHolder
 
 class MtFooter:public MtTemplateItem
 {
-
+   public:
+        MtFooter(MtTemplateItem * holder);
+        int type()const;
 };
 
 #endif // MTTEMPLATE_H

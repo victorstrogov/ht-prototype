@@ -17,7 +17,8 @@ SOURCES += main.cpp\
     simpletreetotableproxy.cpp \
     htflatmodelprototype.cpp \
     tableviewspancontroller.cpp \
-    mttemplate.cpp
+    mttemplate.cpp \
+    datamanipulation.cpp
 
 HEADERS  += mainwindow.h \
     header.h \
@@ -25,9 +26,12 @@ HEADERS  += mainwindow.h \
     simpletreetotableproxy.h \
     htflatmodelprototype.h \
     tableviewspancontroller.h \
-    mttemplate.h
+    mttemplate.h \
+    datamanipulation.h
 
 FORMS    += mainwindow.ui
+
+
 
 
 
