@@ -16,16 +16,20 @@ SOURCES += main.cpp\
     htmodelprototype.cpp \
     simpletreetotableproxy.cpp \
     htflatmodelprototype.cpp \
-    tableviewspancontroller.cpp
+    tableviewspancontroller.cpp \
+    mttemplate.cpp
 
 HEADERS  += mainwindow.h \
     header.h \
     htmodelprototype.h \
     simpletreetotableproxy.h \
     htflatmodelprototype.h \
-    tableviewspancontroller.h
+    tableviewspancontroller.h \
+    mttemplate.h
 
 FORMS    += mainwindow.ui
+
+
 
 
 
