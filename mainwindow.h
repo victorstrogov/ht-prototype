@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <htmodelprototype.h>
+#include "htmodelprototype.h"
 
 namespace Ui {
     class MainWindow;

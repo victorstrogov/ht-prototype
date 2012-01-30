@@ -1,8 +1,9 @@
 #ifndef HTMODELPROTOTYPE_H
 #define HTMODELPROTOTYPE_H
 
+
 #include <QAbstractItemModel>
-#include <header.h>
+#include "header.h"
 
 class HtModelPrototype : public QAbstractItemModel
 {

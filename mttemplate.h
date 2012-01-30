@@ -7,6 +7,22 @@ class MtSubHeader;
 class MtFooter;
 class MtTemplate;
 
+class MtTemplateHolder:public QObject
+{
+    Q_OBJECT
+public:
+    const int code() const;
+    void setCode(int code);
+    const QString & name() const;
+    void setName(const QString & name);
+    const int templateCode() const;
+    void setTemplateCode(int code);
+private:
+    int m_code;
+    QString  m_name;
+    int m_templateCode;
+
+};
 
 class MtTemplateItem
 {
@@ -36,10 +52,13 @@ class MtTemplateItem
         MtTemplateItems & childs();
         const MtTemplateItems & childs()const;
         void setParent(MtTemplateItem * parent);
+        QVariant code() const;
+        void setCode(QVariant code);
     private:
         MtTemplateItems m_childs;
         MtTemplateItem * m_parent;
         MtTemplate * m_parentTemplate;
+        QVariant m_code;
 
 };
 
@@ -68,9 +87,6 @@ public:
 
       };
     MtTemplate();
-    int code() const;
-    void setCode(int code);
-
     int columnCount() const;
     void setColumnCount(int columnCount);
 

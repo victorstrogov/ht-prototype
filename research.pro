@@ -18,7 +18,8 @@ SOURCES += main.cpp\
     htflatmodelprototype.cpp \
     tableviewspancontroller.cpp \
     mttemplate.cpp \
-    datamanipulation.cpp
+    sgapred.cpp \
+    mtdatamanipulation.cpp
 
 HEADERS  += mainwindow.h \
     header.h \
@@ -27,7 +28,8 @@ HEADERS  += mainwindow.h \
     htflatmodelprototype.h \
     tableviewspancontroller.h \
     mttemplate.h \
-    datamanipulation.h
+    sgapred.h \
+    mtdatamanipulation.h
 
 FORMS    += mainwindow.ui
 

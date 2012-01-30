@@ -2,7 +2,7 @@
 #define HTFLATMODELPROTOTYPE_H
 
 #include <QAbstractItemModel>
-#include <header.h>
+#include "header.h"
 class HtFlatModelPrototype : public QAbstractItemModel
 {
     Q_OBJECT

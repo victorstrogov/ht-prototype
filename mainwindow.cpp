@@ -2,9 +2,9 @@
 #include "ui_mainwindow.h"
 #include <QDebug>
 #include <QTableView>
-#include<htflatmodelprototype.h>
-#include <simpletreetotableproxy.h>
-#include <tableviewspancontroller.h>
+#include"htflatmodelprototype.h"
+#include "simpletreetotableproxy.h"
+#include "tableviewspancontroller.h"
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
