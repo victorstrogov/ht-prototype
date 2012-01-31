@@ -11,15 +11,19 @@ class MtTemplateHolder:public QObject
 {
     Q_OBJECT
 public:
+    explicit MtTemplateHolder(QObject * parent);
     const int code() const;
     void setCode(int code);
     const QString & name() const;
     void setName(const QString & name);
+    const QString & brief() const;
+    void setBrief(const QString & brief);
     const int templateCode() const;
     void setTemplateCode(int code);
 private:
     int m_code;
     QString  m_name;
+    QString m_brief;
     int m_templateCode;
 
 };
@@ -27,7 +31,14 @@ private:
 class MtTemplateItem
 {
     public:
-        MtTemplateItem();
+    enum Type
+    {
+        Header,
+        Footer,
+        Subheader,
+        Template
+    };
+        MtTemplateItem(MtTemplate * parentTemplate);
         virtual ~MtTemplateItem();
 
         virtual int type() const=0;
@@ -47,29 +58,35 @@ class MtTemplateItem
 
         const MtTemplateItem * parent() const;
         const MtTemplate * parentTemplate() const;
+
+        MtTemplate * toTemplate() const;
+        MtHeader * toHeader() const;
+        MtSubHeader * toSubHeader() const;
+        MtFooter * toFooter() const;
     protected:
         typedef QList<MtTemplateItem *> MtTemplateItems;
         MtTemplateItems & childs();
         const MtTemplateItems & childs()const;
         void setParent(MtTemplateItem * parent);
-        QVariant code() const;
-        void setCode(QVariant code);
     private:
         MtTemplateItems m_childs;
         MtTemplateItem * m_parent;
         MtTemplate * m_parentTemplate;
-        QVariant m_code;
 
 };
 
-class MtFooterHolder
+class MtFooterHolder:public MtTemplateItem
 {
     public:
         typedef QList<MtFooter*> MtFooters;
+        MtFooterHolder(MtTemplate * parentTemplate);
         virtual ~MtFooterHolder();
         MtFooters & footers();
         const MtFooters & footers() const;
         MtFooter * addFooter();
+    protected:
+        void stableFooters();
+        MtTemplateItem * phyzicalHolder();
     private:
         MtFooters m_footers;
 };
@@ -78,14 +95,7 @@ class MtFooterHolder
 class MtTemplate:public MtFooterHolder
 {
 public:
-    enum Type
-      {
-        Header,
-        SubHeader,
-        Footer,
-        Template
 
-      };
     MtTemplate();
     int columnCount() const;
     void setColumnCount(int columnCount);
@@ -93,7 +103,8 @@ public:
     int type() const;
 
     MtHeader * addHeader();
-
+private:
+    int m_columns;
 
 
 };
@@ -109,6 +120,11 @@ class MtHeader:public MtFooterHolder
         MtSubHeader * addSubHeader();
 };
 
+class MtSubHeader:public MtTemplateItem
+{
+public:
+    MtSubHeader(MtHeader * parent);
+};
 class MtFooter:public MtTemplateItem
 {
    public:
