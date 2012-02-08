@@ -49,6 +49,7 @@ class MtDataItem
        private:
         MtIndicatorItems m_indicators;
         MtTemplateItem * m_parent;
+        QVariantList m_data;
 };
 
 class MtIndicatorItem:public MtDataItem
@@ -60,8 +61,10 @@ class MtIndicatorItem:public MtDataItem
         void removeWatcher(MtDataItem * watcher);
         void update(MtDataItem * updateRequester);
         bool isIndicator() const;
-        bool isReadOnly() const;
 
+        bool isReadOnly() const;
+private:
+        MtDataItems m_watchers;
 };
 
 #endif // DATAMANIPULATION_H

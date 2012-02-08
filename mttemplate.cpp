@@ -267,3 +267,23 @@ MtSubHeader * MtHeader::addSubHeader()
     this->childs.append(h);
     return h;
 }
+
+MtSubHeader::MtSubHeader(MtHeader *parent)
+{
+    setParent(parent);
+}
+
+int MtSubHeader::type() const
+{
+    return Subheader;
+}
+
+MtFooter::MtFooter(MtTemplateItem *holder)
+{
+    setParent(holder);
+}
+
+int MtFooter::type() const
+{
+    return Footer;
+}

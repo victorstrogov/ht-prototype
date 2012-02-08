@@ -124,6 +124,7 @@ class MtSubHeader:public MtTemplateItem
 {
 public:
     MtSubHeader(MtHeader * parent);
+    int type() const;
 };
 class MtFooter:public MtTemplateItem
 {
