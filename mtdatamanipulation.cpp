@@ -91,3 +91,11 @@ bool MtIndicatorItem::isReadOnly() const
 MtTemplateSerialization::MtTemplateSerialization(QObject *parent):QObject(parent)
 {
 }
+
+void MtDataItem::save()
+{
+}
+
+void MtDataItem::load()
+{
+}

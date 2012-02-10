@@ -19,7 +19,8 @@ SOURCES += main.cpp\
     tableviewspancontroller.cpp \
     mttemplate.cpp \
     sgapred.cpp \
-    mtdatamanipulation.cpp
+    mtdatamanipulation.cpp \
+    mtcompare.cpp
 
 HEADERS  += mainwindow.h \
     header.h \
@@ -29,9 +30,12 @@ HEADERS  += mainwindow.h \
     tableviewspancontroller.h \
     mttemplate.h \
     sgapred.h \
-    mtdatamanipulation.h
+    mtdatamanipulation.h \
+    mtcompare.h
 
 FORMS    += mainwindow.ui
+
+
 
 
 

@@ -7,6 +7,8 @@ class MtTemplate;
 class QWidget;
 class MtIndicatorItem;
 class MtTemplateHolder;
+class MtComparer;
+
 class MtTemplateSerialization:public QObject
 {
     Q_OBJECT
@@ -43,6 +45,8 @@ class MtDataItem
         const MtIndicatorItems  & indicators() const;
         void setIndicators(const MtIndicatorItems & indicators);
 
+        virtual void save();
+        virtual void load();
         const MtTemplateItem * parent() const;
        protected:
         MtIndicatorItems  & indicators();
