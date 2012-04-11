@@ -48,7 +48,6 @@ class MtDataItem
         virtual void save();
         virtual void load();
         const MtTemplateItem * parent() const;
-       protected:
         MtIndicatorItems  & indicators();
        private:
         MtIndicatorItems m_indicators;

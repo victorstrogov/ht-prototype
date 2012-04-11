@@ -4,9 +4,9 @@
 static QMutex s_comparersLocker;
 static QList<MtCompareHandler*> s_comparers;
 
-static  MtCompare * MtCompare::tester(int byCode)
+ MtCompare * MtCompare::tester(int byCode)
 {
-    QMutexLocker ml(&s_comparers);
+    QMutexLocker ml(&s_comparersLocker);
     MtCompare * tester=0;
     foreach(MtCompareHandler * h,s_comparers)
     {
@@ -27,7 +27,7 @@ MtCompareHandler::MtCompareHandler()
 
 MtCompareHandler::~MtCompareHandler()
 {
-    QMutexLocker ml(&s_comparers);
+    QMutexLocker ml(&s_comparersLocker);
     s_comparers.removeAll(this);
 }
 

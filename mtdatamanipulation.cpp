@@ -50,6 +50,11 @@ const MtTemplateItem *MtDataItem::parent() const
     return m_parent;
 }
 
+MtDataItem::MtIndicatorItems &MtDataItem::indicators()
+{
+    return m_indicators;
+}
+
 
 MtIndicatorItem::MtIndicatorItem(MtTemplateItem *parent, MtDataItem *watch):MtDataItem(parent)
 {
@@ -76,6 +81,7 @@ void MtIndicatorItem::removeWatcher(MtDataItem *watcher)
 
 void MtIndicatorItem::update(MtDataItem *updateRequester)
 {
+    //TODO: make update
 }
 
 bool MtIndicatorItem::isIndicator() const

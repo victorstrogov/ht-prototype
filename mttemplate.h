@@ -49,24 +49,24 @@ class MtTemplateItem
         bool removeChild(MtTemplateItem * child);
         bool removeChild(int at);
 
-        bool swapChild(int from,int to);
+        bool swapChild(int from, int too);
         bool swapChild(MtTemplateItem* which,MtTemplateItem * with);
         bool swapChild(MtTemplateItem *which, int to);
 
         int  childCount() const;
         bool hasChilds() const;
 
-        const MtTemplateItem * parent() const;
-        const MtTemplate * parentTemplate() const;
+        MtTemplateItem *parent();
+        MtTemplate * parentTemplate() ;
 
-        MtTemplate * toTemplate() const;
-        MtHeader * toHeader() const;
-        MtSubHeader * toSubHeader() const;
-        MtFooter * toFooter() const;
-    protected:
+        MtTemplate * toTemplate();
+        MtHeader * toHeader();
+        MtSubHeader * toSubHeader();
+        MtFooter * toFooter();
         typedef QList<MtTemplateItem *> MtTemplateItems;
         MtTemplateItems & childs();
         const MtTemplateItems & childs()const;
+    protected:
         void setParent(MtTemplateItem * parent);
     private:
         MtTemplateItems m_childs;
@@ -86,7 +86,7 @@ class MtFooterHolder:public MtTemplateItem
         MtFooter * addFooter();
     protected:
         void stableFooters();
-        MtTemplateItem * phyzicalHolder();
+        MtTemplateItem *phyzicalHolder();
     private:
         MtFooters m_footers;
 };

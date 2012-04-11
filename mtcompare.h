@@ -1,12 +1,13 @@
 #ifndef MTCOMPARE_H
 #define MTCOMPARE_H
 class QVariantList;
+class MtCompare;
 class MtCompareHandler
 {
 public:
     MtCompareHandler();
     ~MtCompareHandler();
-    MtCompare * create(int code)=0;
+    virtual MtCompare * create(int code)=0;
 
 };
 class MtCompare

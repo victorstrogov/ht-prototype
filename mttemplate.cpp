@@ -1,12 +1,9 @@
 #include "mttemplate.h"
 
-MtTemplate::MtTemplate()
+MtTemplate::MtTemplate():MtFooterHolder(this)
 {
 }
 
-MtFooterHolder::~MtFooterHolder()
-{
-}
 
 MtTemplateHolder::MtTemplateHolder(QObject * parent):QObject(parent),m_code(-1),m_templateCode(-1)
 {
@@ -88,9 +85,9 @@ bool MtTemplateItem::removeChild(int at)
     return false;
 }
 
-bool MtTemplateItem::swapChild(int from, int to)
+bool MtTemplateItem::swapChild(int from, int too)
 {
-    if(from>=childCount()||from<0||to>=childCount()||to<0||to==from)return false;
+    if(from>=childCount()||from<0||too>=childCount()||too<0||too==from)return false;
     childs().swap(from,too);
     return true;
 }
@@ -119,9 +116,14 @@ bool MtTemplateItem::hasChilds() const
     return childs().count()>0;
 }
 
-const MtTemplateItem * MtTemplateItem::parent() const
+MtTemplateItem * MtTemplateItem::parent()
 {
     return m_parent;
+}
+
+MtTemplate *MtTemplateItem::parentTemplate()
+{
+    return m_parentTemplate;
 }
 
 MtTemplateItem::MtTemplateItems & MtTemplateItem::childs()
@@ -138,28 +140,28 @@ void MtTemplateItem::setParent(MtTemplateItem *parent)
 {
     m_parent=parent;
 }
-MtTemplate * MtTemplateItem::toTemplate() const
+MtTemplate * MtTemplateItem::toTemplate()
 {
     if(type()==Template)
         return static_cast<MtTemplate*>(this);
     else
         return 0;
 }
-MtHeader * MtTemplateItem::toHeader() const
+MtHeader * MtTemplateItem::toHeader()
 {
     if(type()==Header)
         return static_cast<MtHeader*>(this);
     else
         return 0;
 }
-MtSubHeader * MtTemplateItem::toSubHeader() const
+MtSubHeader * MtTemplateItem::toSubHeader()
 {
     if(type()==Subheader)
         return static_cast<MtSubHeader*>(this);
     else
         return 0;
 }
-MtFooter * MtTemplateItem::toFooter() const
+MtFooter * MtTemplateItem::toFooter()
 {
     if(type()==Footer)
         return static_cast<MtFooter*>(this);
@@ -173,7 +175,7 @@ MtFooterHolder::MtFooterHolder(MtTemplate * parentTemplate):MtTemplateItem(paren
 
 MtFooterHolder::~MtFooterHolder()
 {
-    foreach(MtFooters f,m_footers)
+    foreach(MtFooter * f,m_footers)
     {
         phyzicalHolder()->removeChild(f);
         delete f;
@@ -192,7 +194,7 @@ const MtFooterHolder::MtFooters & MtFooterHolder::footers() const
 
 MtFooter * MtFooterHolder::addFooter()
 {
-    MtFooter f = new MtFooter(this);
+    MtFooter * f = new MtFooter(this);
     footers().append(f);
     int index=phyzicalHolder()->childs().indexOf(this);
     if(index<0)
@@ -209,12 +211,6 @@ MtTemplateItem * MtFooterHolder::phyzicalHolder()
     MtTemplateItem * physicalHolder=this->parent();
     if(!physicalHolder)physicalHolder=this;
     return physicalHolder;
-}
-
-
-MtTemplate::MtTemplate():MtFooterHolder(this)
-{
-
 }
 
 int MtTemplate::columnCount() const
@@ -234,7 +230,7 @@ int MtTemplate::type() const
 
 MtHeader * MtTemplate::addHeader()
 {
-    MtHeader * h=new Header(this);
+    MtHeader * h=new MtHeader(this);
     this->childs().append(h);
     return h;
 }
@@ -256,7 +252,7 @@ int MtHeader::type() const
 
 MtHeader * MtHeader::addHeader()
 {
-    MtHeader * h=new Header(this);
+    MtHeader * h=new MtHeader(this);
     this->childs().append(h);
     return h;
 }
@@ -264,11 +260,12 @@ MtHeader * MtHeader::addHeader()
 MtSubHeader * MtHeader::addSubHeader()
 {
     MtSubHeader*h=new MtSubHeader(this);
-    this->childs.append(h);
+    this->childs().append(h);
     return h;
 }
 
-MtSubHeader::MtSubHeader(MtHeader *parent)
+MtSubHeader::MtSubHeader(MtHeader *parent) :
+    MtTemplateItem(parent ? parent->parentTemplate() : 0)
 {
     setParent(parent);
 }
@@ -278,7 +275,8 @@ int MtSubHeader::type() const
     return Subheader;
 }
 
-MtFooter::MtFooter(MtTemplateItem *holder)
+MtFooter::MtFooter(MtTemplateItem *holder) :
+    MtTemplateItem(holder ? holder->parentTemplate() : 0)
 {
     setParent(holder);
 }
