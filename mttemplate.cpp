@@ -1,6 +1,6 @@
 #include "mttemplate.h"
 
-MtTemplate::MtTemplate():MtFooterHolder(this)
+MtTemplate::MtTemplate(MtTemplateFactory *factory):MtFooterHolder(this)
 {
 }
 

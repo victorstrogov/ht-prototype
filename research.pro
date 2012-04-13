@@ -20,7 +20,8 @@ SOURCES += main.cpp\
     mttemplate.cpp \
     sgapred.cpp \
     mtdatamanipulation.cpp \
-    mtcompare.cpp
+    mtcompare.cpp \
+    mttemplatemodel.cpp
 
 HEADERS  += mainwindow.h \
     header.h \
@@ -31,7 +32,8 @@ HEADERS  += mainwindow.h \
     mttemplate.h \
     sgapred.h \
     mtdatamanipulation.h \
-    mtcompare.h
+    mtcompare.h \
+    mttemplatemodel.h
 
 FORMS    += mainwindow.ui
 

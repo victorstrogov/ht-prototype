@@ -7,6 +7,16 @@ class MtSubHeader;
 class MtFooter;
 class MtTemplate;
 
+//TODO: replace hard coded creation with factory using
+class MtTemplateFactory
+{
+public:
+    virtual MtHeader* addHeader(MtTemplate* parentTemplate) =0;
+    virtual MtHeader* addHeader(MtHeader* parentTemplate) =0;
+    virtual MtSubHeader* addSubHeader(MtHeader * parent)=0;
+    virtual MtFooter* addFooter(MtFooterHolder * parent)=0;
+};
+
 class MtTemplateHolder:public QObject
 {
     Q_OBJECT
@@ -96,14 +106,16 @@ class MtTemplate:public MtFooterHolder
 {
 public:
 
-    MtTemplate();
+    MtTemplate(MtTemplateFactory * factory);
     int columnCount() const;
     void setColumnCount(int columnCount);
 
     int type() const;
 
     MtHeader * addHeader();
+    MtTemplateFactory * factory();
 private:
+    MtTemplateFactory * m_factory;
     int m_columns;
 
 

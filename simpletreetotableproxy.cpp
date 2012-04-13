@@ -49,7 +49,8 @@ int SimpleTreeToTableProxy::columnCount(const QModelIndex &parent) const
 }
 
 int SimpleTreeToTableProxy::rowCount(const QModelIndex &parent) const
-{if(parent.isValid())return 0;
+{
+    if(parent.isValid())return 0;
     return itemsCount(parent);
 }
 
