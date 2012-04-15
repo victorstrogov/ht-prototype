@@ -136,6 +136,11 @@ const MtTemplateItem::MtTemplateItems & MtTemplateItem::childs() const
     return m_childs;
 }
 
+MtTemplateItem::ItemData &MtTemplateItem::itemData()
+{
+    return m_itemData;
+}
+
 void MtTemplateItem::setParent(MtTemplateItem *parent)
 {
     m_parent=parent;
@@ -284,4 +289,10 @@ MtFooter::MtFooter(MtTemplateItem *holder) :
 int MtFooter::type() const
 {
     return Footer;
+}
+
+
+const MtTemplateItem::ItemData &MtTemplateItem::itemData() const
+{
+    return m_itemData;
 }

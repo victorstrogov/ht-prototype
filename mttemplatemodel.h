@@ -2,7 +2,8 @@
 #define MTTEMPLATEMODEL_H
 
 #include <QAbstractItemModel>
-
+class MtTemplate;
+class MtTemplateItem;
 class MtTemplateModel : public QAbstractItemModel
 {
     Q_OBJECT
@@ -19,8 +20,13 @@ public:
             QModelIndex()) const;
     QModelIndex  parent(const QModelIndex &child) const;
     QSize span(const QModelIndex & index) const;
+
+    MtTemplate * handledTemplate();
+    void setHandledTemplate(MtTemplate * pTemplate);
 public slots:
-    
+private:
+    MtTemplateItem *itemFromIndex(QModelIndex i) const;
+    MtTemplate * m_template;
 };
 
 #endif // MTTEMPLATEMODEL_H

@@ -5,7 +5,9 @@ class MtTemplateItem;
 class MtHeader;
 class MtSubHeader;
 class MtFooter;
+class MtFooterHolder;
 class MtTemplate;
+class MtDataItem;
 
 //TODO: replace hard coded creation with factory using
 class MtTemplateFactory
@@ -48,6 +50,7 @@ class MtTemplateItem
         Subheader,
         Template
     };
+    typedef QList<MtDataItem * > ItemData;
         MtTemplateItem(MtTemplate * parentTemplate);
         virtual ~MtTemplateItem();
 
@@ -76,12 +79,15 @@ class MtTemplateItem
         typedef QList<MtTemplateItem *> MtTemplateItems;
         MtTemplateItems & childs();
         const MtTemplateItems & childs()const;
+        ItemData & itemData();
+        const ItemData & itemData() const;
     protected:
         void setParent(MtTemplateItem * parent);
     private:
         MtTemplateItems m_childs;
         MtTemplateItem * m_parent;
         MtTemplate * m_parentTemplate;
+        ItemData  m_itemData;
 
 };
 
