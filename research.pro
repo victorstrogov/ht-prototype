@@ -9,7 +9,7 @@ QT       += core gui
 TARGET = research
 TEMPLATE = app
 
-
+include ("mt/mt.pri")
 SOURCES += main.cpp\
         mainwindow.cpp \
     header.cpp \
@@ -17,11 +17,7 @@ SOURCES += main.cpp\
     simpletreetotableproxy.cpp \
     htflatmodelprototype.cpp \
     tableviewspancontroller.cpp \
-    mttemplate.cpp \
-    sgapred.cpp \
-    mtdatamanipulation.cpp \
-    mtcompare.cpp \
-    mttemplatemodel.cpp
+    sgapred.cpp
 
 HEADERS  += mainwindow.h \
     header.h \
@@ -29,11 +25,7 @@ HEADERS  += mainwindow.h \
     simpletreetotableproxy.h \
     htflatmodelprototype.h \
     tableviewspancontroller.h \
-    mttemplate.h \
     sgapred.h \
-    mtdatamanipulation.h \
-    mtcompare.h \
-    mttemplatemodel.h
 
 FORMS    += mainwindow.ui
 
