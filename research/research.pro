@@ -9,7 +9,7 @@ QT       += core gui
 TARGET = research
 TEMPLATE = app
 
-include ("mt/mt.pri")
+include ("../mt/mt.pri")
 SOURCES += main.cpp\
         mainwindow.cpp \
     header.cpp \

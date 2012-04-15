@@ -1,6 +1,7 @@
 #include "mttemplatemodel.h"
 #include "mttemplate.h"
 #include "mtdatamanipulation.h"
+#include <QDebug>
 MtTemplateModel::MtTemplateModel(QObject *parent) :
     QAbstractItemModel(parent)
 {
@@ -33,10 +34,12 @@ QVariant MtTemplateModel::data(const QModelIndex &index, int role) const
     const MtTemplateItem * item = itemFromIndex(index);
     switch (role) {
     case Qt::DisplayRole:
-        if(index.column() < item->itemData().count())
+        if(index.column() < item->itemData().size())
         {
-            return item->itemData().
+
+            QVariant data = item->itemData().
                     at(index.column())->dataView();
+            return data;
         }
         break;
     default:
@@ -48,15 +51,18 @@ QVariant MtTemplateModel::data(const QModelIndex &index, int role) const
 QModelIndex MtTemplateModel::
 index(int row, int column, const QModelIndex &parent) const
 {
+
     MtTemplateItem * item = itemFromIndex(parent);
     if(!item ) return QModelIndex();
 
-    if(row > item->childCount() ||
-            column > item->child(row)->itemData().count())
+    if(row >= item->childCount())
     {
+
         return QModelIndex();
     }
-    return createIndex(row,column,item->child(row));
+    QModelIndex i =createIndex(row,column,item->child(row));
+
+    return i;
 
 }
 

@@ -19,8 +19,8 @@ signals:
     public:
     MtTemplateSerialization(QObject * parent=0);
         /*pure*/virtual MtTemplate *
-    loadTemplate(const MtTemplateHolder *holder)=0;
-        /*pure*/virtual const MtTemplateHolder *
+    loadTemplate()=0;
+        /*pure*/virtual void
     saveTemplate(MtTemplate * mtTemplate) =0;
 };
 
@@ -39,8 +39,6 @@ class MtDataItem
         virtual bool isReadOnly() const ;
         virtual bool isIndicator() const;
 
-        virtual QWidget * editor() =0;
-        virtual void readFromWidget(QWidget * wigdet)=0;
 
         const MtIndicatorItems  & indicators() const;
         void setIndicators(const MtIndicatorItems & indicators);
@@ -54,7 +52,12 @@ class MtDataItem
         MtTemplateItem * m_parent;
         QVariantList m_data;
 };
-
+class MtReadOnlyItem:public MtDataItem
+{
+public:
+    MtReadOnlyItem(MtTemplateItem * parent);
+    bool isReadOnly() const;
+};
 class MtIndicatorItem:public MtDataItem
 {
       public:

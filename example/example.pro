@@ -13,9 +13,11 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainform.cpp
+        mainform.cpp \
+    exampletempateserrialization.cpp
 
-HEADERS  += mainform.h
+HEADERS  += mainform.h \
+    exampletempateserrialization.h
 
 FORMS    += mainform.ui
 include("../mt/mt.pri")

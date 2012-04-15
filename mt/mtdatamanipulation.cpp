@@ -105,3 +105,14 @@ void MtDataItem::save()
 void MtDataItem::load()
 {
 }
+
+
+MtReadOnlyItem::MtReadOnlyItem(MtTemplateItem *parent)
+    :MtDataItem(parent)
+{
+}
+
+bool MtReadOnlyItem::isReadOnly() const
+{
+    return true;
+}

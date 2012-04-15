@@ -8,16 +8,8 @@ class MtFooter;
 class MtFooterHolder;
 class MtTemplate;
 class MtDataItem;
+class MtTemplateFactory;
 
-//TODO: replace hard coded creation with factory using
-class MtTemplateFactory
-{
-public:
-    virtual MtHeader* addHeader(MtTemplate* parentTemplate) =0;
-    virtual MtHeader* addHeader(MtHeader* parentTemplate) =0;
-    virtual MtSubHeader* addSubHeader(MtHeader * parent)=0;
-    virtual MtFooter* addFooter(MtFooterHolder * parent)=0;
-};
 
 class MtTemplateHolder:public QObject
 {
@@ -91,6 +83,24 @@ class MtTemplateItem
 
 };
 
+//TODO: replace hard coded creation with factory using
+class MtTemplateFactory
+{
+public:
+    enum TemplateType
+    {
+        JustTemplate,
+        EditableDocument
+    };
+    virtual MtTemplateItem::ItemData
+    defaultHeaderData(TemplateType type,MtHeader* parent) = 0;
+    virtual MtTemplateItem::ItemData
+    defaultSubHeaderData(TemplateType type,MtSubHeader* parent)= 0;
+    virtual MtTemplateItem::ItemData
+    defaultFooterData(TemplateType type,MtFooter* parent)= 0;
+
+};
+
 class MtFooterHolder:public MtTemplateItem
 {
     public:
@@ -101,7 +111,6 @@ class MtFooterHolder:public MtTemplateItem
         const MtFooters & footers() const;
         MtFooter * addFooter();
     protected:
-        void stableFooters();
         MtTemplateItem *phyzicalHolder();
     private:
         MtFooters m_footers;
@@ -120,9 +129,12 @@ public:
 
     MtHeader * addHeader();
     MtTemplateFactory * factory();
+    MtTemplateFactory::TemplateType templateType()const;
+    void setTemplateType(MtTemplateFactory::TemplateType type);
 private:
     MtTemplateFactory * m_factory;
     int m_columns;
+    MtTemplateFactory::TemplateType m_type;
 
 
 };
@@ -150,5 +162,7 @@ class MtFooter:public MtTemplateItem
         MtFooter(MtTemplateItem * holder);
         int type()const;
 };
+
+
 
 #endif // MTTEMPLATE_H

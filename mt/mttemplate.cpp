@@ -1,6 +1,6 @@
 #include "mttemplate.h"
 
-MtTemplate::MtTemplate(MtTemplateFactory *factory):MtFooterHolder(this)
+MtTemplate::MtTemplate(MtTemplateFactory *factory):MtFooterHolder(this), m_factory(factory)
 {
 }
 
@@ -199,7 +199,10 @@ const MtFooterHolder::MtFooters & MtFooterHolder::footers() const
 
 MtFooter * MtFooterHolder::addFooter()
 {
-    MtFooter * f = new MtFooter(this);
+    MtFooter * f = new MtFooter(phyzicalHolder());
+    MtTemplate * t = parentTemplate();
+    f->itemData()= t->factory()
+            ->defaultFooterData(t->templateType(),f);
     footers().append(f);
     int index=phyzicalHolder()->childs().indexOf(this);
     if(index<0)
@@ -235,9 +238,17 @@ int MtTemplate::type() const
 
 MtHeader * MtTemplate::addHeader()
 {
-    MtHeader * h=new MtHeader(this);
+    MtHeader * h = new MtHeader(this);
+    MtTemplate * t = this;
+    h->itemData()= t->factory()
+            ->defaultHeaderData(t->templateType(),h);
     this->childs().append(h);
     return h;
+}
+
+MtTemplateFactory *MtTemplate::factory()
+{
+    return m_factory;
 }
 
 MtHeader::MtHeader(MtTemplate *parent):MtFooterHolder(parent)
@@ -258,6 +269,9 @@ int MtHeader::type() const
 MtHeader * MtHeader::addHeader()
 {
     MtHeader * h=new MtHeader(this);
+    MtTemplate * t = parentTemplate();
+    h->itemData()= t->factory()
+            ->defaultHeaderData(t->templateType(),h);
     this->childs().append(h);
     return h;
 }
@@ -265,6 +279,9 @@ MtHeader * MtHeader::addHeader()
 MtSubHeader * MtHeader::addSubHeader()
 {
     MtSubHeader*h=new MtSubHeader(this);
+    MtTemplate * t = parentTemplate();
+    h->itemData()= t->factory()
+            ->defaultSubHeaderData(t->templateType(),h);
     this->childs().append(h);
     return h;
 }
@@ -295,4 +312,15 @@ int MtFooter::type() const
 const MtTemplateItem::ItemData &MtTemplateItem::itemData() const
 {
     return m_itemData;
+}
+
+
+MtTemplateFactory::TemplateType MtTemplate::templateType() const
+{
+    return m_type;
+}
+
+void MtTemplate::setTemplateType(MtTemplateFactory::TemplateType type)
+{
+    m_type = type;
 }

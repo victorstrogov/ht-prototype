@@ -9,3 +9,4 @@ SOURCES += \
     $$PWD/mttemplate.cpp \
     $$PWD/mtdatamanipulation.cpp \
     $$PWD/mtcompare.cpp
+INCLUDEPATH *= $$PWD
