@@ -6,7 +6,12 @@
 
 QT       += core gui
 
+
+
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+
+include("../treetotable/treetotable.pri")
+include("../mt/mt.pri")
 
 TARGET = example
 TEMPLATE = app
@@ -20,5 +25,5 @@ HEADERS  += mainform.h \
     exampletempateserrialization.h
 
 FORMS    += mainform.ui
-include("../mt/mt.pri")
-include("../treetotable/treetotable.pri")
+
+

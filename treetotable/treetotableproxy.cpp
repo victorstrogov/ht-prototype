@@ -1,16 +1,16 @@
-#include "simpletreetotableproxy.h"
+#include "treetotableproxy.h"
 #include <QSize>
-SimpleTreeToTableProxy::SimpleTreeToTableProxy(QObject *parent) :
+TreeToTableProxy::TreeToTableProxy(QObject *parent) :
     QAbstractProxyModel(parent)
 {
 }
 
-QModelIndex SimpleTreeToTableProxy::mapFromSource(const QModelIndex &sourceIndex) const
+QModelIndex TreeToTableProxy::mapFromSource(const QModelIndex &sourceIndex) const
 {
     return index(rowNumber(sourceIndex),sourceIndex.column());
 }
 
-QModelIndex SimpleTreeToTableProxy::mapToSource(const QModelIndex &proxyIndex) const
+QModelIndex TreeToTableProxy::mapToSource(const QModelIndex &proxyIndex) const
 {
 
     QModelIndex rowIndex=indexFromRow(proxyIndex.row());
@@ -18,7 +18,7 @@ QModelIndex SimpleTreeToTableProxy::mapToSource(const QModelIndex &proxyIndex) c
     return sourceModel()->index(rowIndex.row(),proxyIndex.column(),rowIndex.parent());
 }
 
-int SimpleTreeToTableProxy::rowNumber(QModelIndex index) const
+int TreeToTableProxy::rowNumber(QModelIndex index) const
 {
     int row=index.row();
     QModelIndex i =index.parent();
@@ -32,7 +32,7 @@ int SimpleTreeToTableProxy::rowNumber(QModelIndex index) const
 
 
 
-int SimpleTreeToTableProxy::itemsCount(QModelIndex index) const
+int TreeToTableProxy::itemsCount(QModelIndex index) const
 {
     int hightCount=sourceModel()->rowCount(index);
     int  items =hightCount;
@@ -43,29 +43,29 @@ int SimpleTreeToTableProxy::itemsCount(QModelIndex index) const
     return items;
 }
 
-int SimpleTreeToTableProxy::columnCount(const QModelIndex &parent) const
+int TreeToTableProxy::columnCount(const QModelIndex &parent) const
 {
     return sourceModel()->columnCount(parent);
 }
 
-int SimpleTreeToTableProxy::rowCount(const QModelIndex &parent) const
+int TreeToTableProxy::rowCount(const QModelIndex &parent) const
 {
     if(parent.isValid())return 0;
     return itemsCount(parent);
 }
 
-QModelIndex SimpleTreeToTableProxy::index(int row, int column, const QModelIndex &parent) const
+QModelIndex TreeToTableProxy::index(int row, int column, const QModelIndex &parent) const
 {
     if(parent.isValid())return QModelIndex();
     return createIndex(row,column);
 }
 
-QModelIndex SimpleTreeToTableProxy::parent(const QModelIndex &/*child*/) const
+QModelIndex TreeToTableProxy::parent(const QModelIndex &/*child*/) const
 {
     return QModelIndex();
 }
 
-QModelIndex SimpleTreeToTableProxy::indexFromRow(int row) const
+QModelIndex TreeToTableProxy::indexFromRow(int row) const
 {
     QModelIndex index;
     while(!index.isValid())
@@ -75,7 +75,7 @@ QModelIndex SimpleTreeToTableProxy::indexFromRow(int row) const
     return index;
 }
 
-QModelIndex SimpleTreeToTableProxy::findRow(int &row, QModelIndex searchIn) const
+QModelIndex TreeToTableProxy::findRow(int &row, QModelIndex searchIn) const
 {
     QAbstractItemModel * model=sourceModel();
     QModelIndex  finded;
@@ -97,7 +97,7 @@ QModelIndex SimpleTreeToTableProxy::findRow(int &row, QModelIndex searchIn) cons
     return finded;
 }
 
-QSize SimpleTreeToTableProxy::span(const QModelIndex &index) const
+QSize TreeToTableProxy::span(const QModelIndex &index) const
 {
     return sourceModel()->span(mapToSource(index));
 }

@@ -90,7 +90,12 @@ QModelIndex MtTemplateModel::parent(const QModelIndex &child) const
 
 QSize MtTemplateModel::span(const QModelIndex &index) const
 {
-    return QAbstractItemModel::span(index);
+    MtTemplateItem * item = itemFromIndex(index);
+    if(item->itemData().count()-1 == index.column() )
+    {
+        return QSize(columnCount() - index.column(), 1);
+    }
+    return QSize();
 }
 
 MtTemplate *MtTemplateModel::handledTemplate()

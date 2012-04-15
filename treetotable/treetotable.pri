@@ -1,7 +1,8 @@
 HEADERS += \
-    ../treetotable/treetotableproxy.h \
-    ../treetotable/tableviewspancontroller.h
+    $$PWD/treetotableproxy.h \
+    $$PWD/tableviewspancontroller.h
 
 SOURCES += \
-    ../treetotable/treetotableproxy.cpp \
-    ../treetotable/tableviewspancontroller.cpp
+    $$PWD/treetotableproxy.cpp \
+    $$PWD/tableviewspancontroller.cpp
+INCLUDEPATH = $$PWD
