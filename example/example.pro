@@ -21,3 +21,4 @@ HEADERS  += mainform.h \
 
 FORMS    += mainform.ui
 include("../mt/mt.pri")
+include("../treetotable/treetotable.pri")

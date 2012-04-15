@@ -52,7 +52,7 @@ MainWindow::MainWindow(QWidget *parent) :
    i=i.child(0,0);
     qDebug()<<i.data();
     HtFlatModelPrototype * flatModel=new HtFlatModelPrototype(this);
-    SimpleTreeToTableProxy * sttProxy=new SimpleTreeToTableProxy(this);
+    TreeToTableProxy * sttProxy=new TreeToTableProxy(this);
     sttProxy->setSourceModel(m_model);
     flatModel->setRootItem(m_rootItem);
     QTableView * tv=new QTableView(ui->centralWidget);

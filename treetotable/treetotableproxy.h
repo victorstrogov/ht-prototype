@@ -3,11 +3,11 @@
 
 #include <QAbstractProxyModel>
 
-class SimpleTreeToTableProxy : public QAbstractProxyModel
+class TreeToTableProxy : public QAbstractProxyModel
 {
     Q_OBJECT
 public:
-    explicit SimpleTreeToTableProxy(QObject *parent = 0);
+    explicit TreeToTableProxy(QObject *parent = 0);
     QModelIndex mapToSource( const QModelIndex & proxyIndex ) const;
     QModelIndex	mapFromSource( const QModelIndex & sourceIndex ) const;
     QModelIndex index(int row,

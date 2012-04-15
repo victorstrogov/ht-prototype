@@ -14,17 +14,13 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     header.cpp \
     htmodelprototype.cpp \
-    simpletreetotableproxy.cpp \
     htflatmodelprototype.cpp \
-    tableviewspancontroller.cpp \
     sgapred.cpp
 
 HEADERS  += mainwindow.h \
     header.h \
     htmodelprototype.h \
-    simpletreetotableproxy.h \
     htflatmodelprototype.h \
-    tableviewspancontroller.h \
     sgapred.h \
 
 FORMS    += mainwindow.ui
