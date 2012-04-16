@@ -67,3 +67,4 @@ void MainForm::on_current_selection_changed(const QModelIndex &current, const QM
     }
     ui->lbStatus->setText(itemType + " selected - " + item->itemData().at(0)->dataView().toString() );
 }
+

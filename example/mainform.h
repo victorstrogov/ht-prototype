@@ -4,6 +4,7 @@
 #include <QDialog>
 #include <QAbstractItemModel>
 class MtTemplateModel;
+class MtTemplateItem;
 class TreeToTableProxy;
 namespace Ui {
 class MainForm;
