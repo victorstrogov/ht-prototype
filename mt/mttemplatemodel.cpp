@@ -26,7 +26,7 @@ int MtTemplateModel::rowCount(const QModelIndex &parent) const
 int MtTemplateModel::columnCount(const QModelIndex &parent) const
 {
     Q_UNUSED(parent)
-    return 5;
+    return m_template->columnCount();
 }
 
 QVariant MtTemplateModel::data(const QModelIndex &index, int role) const

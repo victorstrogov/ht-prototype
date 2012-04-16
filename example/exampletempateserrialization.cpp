@@ -1,5 +1,5 @@
 #include "exampletempateserrialization.h"
-
+#include <QDateTime>
 class ExampleTemplateFactory: public MtTemplateFactory
 {
 public:
@@ -27,6 +27,7 @@ MtTemplate *ExampleTempateSerrialization::loadTemplate()
             new ExampleTemplateFactory();
     MtTemplate * t =
             new MtTemplate(factory);
+    t->setColumnCount(4);
     t->setTemplateType(MtTemplateFactory::JustTemplate);
     buildTemplateTree(t);
     emit end();
@@ -74,6 +75,12 @@ void ExampleTempateSerrialization::buildHeaderTree(MtHeader *header, int recLeve
         buildHeaderTree(h, recLevel-1);
     }
 
+    for(int i = 0; i < subheaderCount; i++)
+    {
+        MtSubHeader * sh = header->addSubHeader();
+        sh->itemData().at(0)->setData(QVariantList()<<"SubHeader");
+    }
+
     for(int i = 0; i < footerCount; i++)
     {
         MtFooter * f = header->addFooter();
@@ -81,11 +88,7 @@ void ExampleTempateSerrialization::buildHeaderTree(MtHeader *header, int recLeve
         f->itemData().at(1)->setData(QVariantList()<<"Footer header");
 
     }
-    for(int i = 0; i < subheaderCount; i++)
-    {
-        MtSubHeader * sh = header->addSubHeader();
-        sh->itemData().at(0)->setData(QVariantList()<<"SubHeader");
-    }
+
 }
 
 

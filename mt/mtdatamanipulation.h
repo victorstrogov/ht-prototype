@@ -8,7 +8,10 @@ class QWidget;
 class MtIndicatorItem;
 class MtTemplateHolder;
 class MtComparer;
-
+/**
+ *@class MtTemplateSerialization
+ *Предоставляет обьект который знает как загрузить/сохранить шаблон
+*/
 class MtTemplateSerialization:public QObject
 {
     Q_OBJECT
@@ -23,7 +26,10 @@ signals:
         /*pure*/virtual void
     saveTemplate(MtTemplate * mtTemplate) =0;
 };
-
+/**
+ *@class MtDataItem
+ *Одна отображаемая ячейка данных
+*/
 class MtDataItem
 {
      public:
@@ -52,12 +58,21 @@ class MtDataItem
         MtTemplateItem * m_parent;
         QVariantList m_data;
 };
+/**
+ *@class MtReadOnlyItem
+ *ячейка данных только для чтения
+*/
 class MtReadOnlyItem:public MtDataItem
 {
 public:
     MtReadOnlyItem(MtTemplateItem * parent);
     bool isReadOnly() const;
 };
+/**
+ *@class MtIndicatorItem
+ *Индикатор,ячейка данных, чье значение зависит от данных в
+ *другой ячейке, в том числе и в индикаторе
+*/
 class MtIndicatorItem:public MtDataItem
 {
       public:

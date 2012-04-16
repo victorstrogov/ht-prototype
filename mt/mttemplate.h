@@ -31,7 +31,13 @@ private:
     int m_templateCode;
 
 };
-
+/**
+ *@class MtTemplateItem
+ *Базовая структурная единица шаблона, шаблон состоит из набора обьектов MtTemplateItem
+ *и сам является таковым.
+ *MtTemplateItem не занимается хранением данных, а несет информацию только о структуре шаблона,
+ *для того чтобы получить/изменить данные нужно использовать метод itemData()
+*/
 class MtTemplateItem
 {
     public:
@@ -83,7 +89,11 @@ class MtTemplateItem
 
 };
 
-//TODO: replace hard coded creation with factory using
+/**
+ *@class MtTemplateFactory
+ *Содержит алгоритмы, генерирующие набор данных по умолчанию,
+ * для всех основных структурных единиц шаблона
+*/
 class MtTemplateFactory
 {
 public:
@@ -100,7 +110,10 @@ public:
     defaultFooterData(TemplateType type,MtFooter* parent)= 0;
 
 };
-
+/**
+ *@class MtFooterHolder
+ *Структурная единица, у которой может быть подпись(MtFooter)
+*/
 class MtFooterHolder:public MtTemplateItem
 {
     public:
@@ -116,7 +129,11 @@ class MtFooterHolder:public MtTemplateItem
         MtFooters m_footers;
 };
 
-
+/**
+ *@class MtTemplate
+ *Представляет собой шаблон, является структурной единицей верхнего уровня,
+ *не имеет родительской структурной единицы, може содержать в себе MtHeader, MtFooter.
+*/
 class MtTemplate:public MtFooterHolder
 {
 public:
@@ -138,7 +155,11 @@ private:
 
 
 };
-
+/**
+ *@class MtHeader
+ *Заголовок, может содержатся в MtHeader, MtTemplate.
+ *Может содержать MtHeader, MtSubHeader, MtFooter.
+*/
 class MtHeader:public MtFooterHolder
 {
   public:
@@ -150,12 +171,20 @@ class MtHeader:public MtFooterHolder
         MtSubHeader * addSubHeader();
 };
 
+/**
+ *@class MtSubHeader
+ *Подзаголовок, может содержаться в MtHeader.
+*/
 class MtSubHeader:public MtTemplateItem
 {
 public:
     MtSubHeader(MtHeader * parent);
     int type() const;
 };
+/**
+ *@class MtFooter
+ *Подпись, может содержаться в MtTemplate, MtHeader.
+*/
 class MtFooter:public MtTemplateItem
 {
    public:
