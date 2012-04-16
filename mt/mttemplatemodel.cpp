@@ -11,7 +11,22 @@ Qt::ItemFlags MtTemplateModel::flags(const QModelIndex &index) const
 {
     if(index.isValid())
     {
-        return Qt::ItemIsEnabled | Qt::ItemIsSelectable;
+        Qt::ItemFlags flags = Qt::ItemIsEnabled | Qt::ItemIsSelectable;
+        MtTemplateItem * item= itemFromIndex(index);
+        if(item)
+        {
+            if(index.column() < item->itemData().size())
+            {
+                if(!item->itemData().at(index.column())->isReadOnly())
+                {
+                    flags |= Qt::ItemIsEditable;
+
+                }
+
+            }
+
+        }
+        return flags;
     }
     return 0;
 }
@@ -48,6 +63,11 @@ QVariant MtTemplateModel::data(const QModelIndex &index, int role) const
     return QVariant();
 }
 
+bool MtTemplateModel::setData(const QModelIndex &index, const QVariant &value, int role)
+{
+    return true;
+}
+
 QModelIndex MtTemplateModel::
 index(int row, int column, const QModelIndex &parent) const
 {
@@ -79,13 +99,13 @@ QModelIndex MtTemplateModel::parent(const QModelIndex &child) const
         return QModelIndex();
     }
     MtTemplateItem * superParent = parentItem->parent();
-    if(superParent)
+    if(!superParent)
     {
-        return createIndex(superParent->childs().
-                           indexOf(parentItem),0,parentItem);
+        superParent = m_template;
     }
+    return createIndex(superParent->childs().
+                       indexOf(parentItem),0,parentItem);
 
-    return createIndex(0,0,parentItem);
 }
 
 QSize MtTemplateModel::span(const QModelIndex &index) const

@@ -1,5 +1,6 @@
 #include "treetotableproxy.h"
 #include <QSize>
+#include <QDebug>
 TreeToTableProxy::TreeToTableProxy(QObject *parent) :
     QAbstractProxyModel(parent)
 {
@@ -7,6 +8,7 @@ TreeToTableProxy::TreeToTableProxy(QObject *parent) :
 
 QModelIndex TreeToTableProxy::mapFromSource(const QModelIndex &sourceIndex) const
 {
+
     return index(rowNumber(sourceIndex),sourceIndex.column());
 }
 
@@ -20,13 +22,24 @@ QModelIndex TreeToTableProxy::mapToSource(const QModelIndex &proxyIndex) const
 
 int TreeToTableProxy::rowNumber(QModelIndex index) const
 {
-    int row=index.row();
+    if(!index.isValid()) return 0;
     QModelIndex i =index.parent();
-    while(i.isValid())
+    QModelIndex iP = index;
+    int row =0;
+    for(int j = 0; j < iP.row(); j++)
     {
-        row+=i.row();
-        i=i.parent();
+        int itemsCount = this->itemsCount(iP.model()->index(j,0,iP.parent()));
+        row += itemsCount;
     }
+    row += iP.row();
+
+    if(i.isValid())
+    {
+        row++;
+        row += rowNumber(i);
+    }
+
+
     return row;
 }
 
@@ -100,4 +113,9 @@ QModelIndex TreeToTableProxy::findRow(int &row, QModelIndex searchIn) const
 QSize TreeToTableProxy::span(const QModelIndex &index) const
 {
     return sourceModel()->span(mapToSource(index));
+}
+
+Qt::ItemFlags TreeToTableProxy::flags(const QModelIndex &index) const
+{
+    return sourceModel()->flags(mapToSource(index));
 }

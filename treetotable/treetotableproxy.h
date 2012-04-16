@@ -18,6 +18,7 @@ public:
     int rowCount(const QModelIndex &parent=QModelIndex()) const;
     int columnCount(const QModelIndex &parent=QModelIndex()) const;
     QSize span(const QModelIndex & index) const;
+    Qt::ItemFlags flags(const QModelIndex &index) const;
 protected:
     QModelIndex indexFromRow(int row) const;
     QModelIndex findRow(int & row,QModelIndex searchIn) const;
