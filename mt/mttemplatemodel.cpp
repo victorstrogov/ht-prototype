@@ -65,6 +65,26 @@ QVariant MtTemplateModel::data(const QModelIndex &index, int role) const
 
 bool MtTemplateModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
+    switch(role)
+    {
+        case Qt::EditRole:
+        {
+            MtTemplateItem * item = itemFromIndex(index);
+            if(!item)return false;
+            if(index.column()>= item->itemData().size())
+            {
+                return false;
+            }
+            MtDataItem * data = item->itemData().at(index.column());
+            if(data->isReadOnly()) return false;
+            QVariantList vlData = (value.type() == QVariant::List) ? value.toList() : QVariantList()<<value;
+            data->setData(vlData);
+        }
+        break;
+        default:
+        return QAbstractItemModel::setData(index,value,role);
+
+    }
     return true;
 }
 
