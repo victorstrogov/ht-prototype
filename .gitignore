@@ -10,3 +10,5 @@
 /*.pro.user
 /*.pro.user.*
 /ui_*.h
+
+*.zip
