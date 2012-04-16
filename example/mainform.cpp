@@ -47,13 +47,7 @@ void MainForm::on_current_selection_changed(const QModelIndex &current, const QM
 {
     Q_UNUSED(previous)
     QModelIndex experimentIndex = m_proxy->mapToSource(current);
-    experimentIndex = m_proxy->mapFromSource(experimentIndex);
-    qDebug()<<m_proxy->rowCount();
-    qDebug()<<"Before "<<experimentIndex;
-    experimentIndex = m_proxy->mapToSource(experimentIndex);
     MtTemplateItem * item = m_model->itemFromIndex(experimentIndex);
-    experimentIndex = m_proxy->mapFromSource(experimentIndex);
-    qDebug()<<"After "<<experimentIndex;
     QString itemType = "Unknown type";
     if(!item)return;
     switch(item->type())

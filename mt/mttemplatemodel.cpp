@@ -48,6 +48,7 @@ QVariant MtTemplateModel::data(const QModelIndex &index, int role) const
 {
     const MtTemplateItem * item = itemFromIndex(index);
     switch (role) {
+    case Qt::EditRole:
     case Qt::DisplayRole:
         if(index.column() < item->itemData().size())
         {
