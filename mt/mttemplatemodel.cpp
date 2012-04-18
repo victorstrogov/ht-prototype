@@ -165,3 +165,60 @@ MtTemplateItem *MtTemplateModel::itemFromIndex(QModelIndex i) const
     }
     return static_cast<MtTemplateItem*>(i.internalPointer());
 }
+
+QModelIndex MtTemplateModel::findItem(MtTemplateItem *item, QModelIndex parent)
+{
+    QModelIndex index;
+    QModelIndex tryToFind;
+    MtTemplateItem * parentItem = itemFromIndex(parent);
+    if(!parentItem || item == m_template|| !item) return index;
+    foreach(MtTemplateItem * i , parentItem->childs())
+    {
+        tryToFind = this->index(parentItem->childs().indexOf(i),0,parent);
+        if(i == item)
+        {
+            return tryToFind;
+        }
+
+         tryToFind = findItem(item, tryToFind);
+         if(tryToFind.isValid())
+         {
+             return tryToFind;
+         }
+
+    }
+    return QModelIndex();
+
+}
+
+void MtTemplateModel::updateItem(MtTemplateItem *item)
+{
+
+    QModelIndex i = findItem(item);
+    if(!i.isValid() && item != m_template)
+    {
+        return;
+    }
+
+}
+
+void MtTemplateModel::updateItem(QModelIndex index)
+{
+    MtTemplateItem * item = itemFromIndex(index);
+    if(!item) return;
+    if(item != m_template)
+    {
+
+        emit dataChanged(this->index(index.row(),0,index.parent()),
+                         this->index(index.row(),this->columnCount()-1,index.parent()));
+
+    }
+
+    emit layoutAboutToBeChanged();
+    emit layoutChanged();
+}
+
+void MtTemplateModel::update()
+{
+    reset();
+}

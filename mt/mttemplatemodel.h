@@ -24,7 +24,14 @@ public:
 
     MtTemplate * handledTemplate();
     void setHandledTemplate(MtTemplate * pTemplate);
+
     MtTemplateItem *itemFromIndex(QModelIndex i) const;
+    QModelIndex findItem(MtTemplateItem * item, QModelIndex parent = QModelIndex());
+    void updateItem(MtTemplateItem * item);
+    void updateItem(QModelIndex item);
+    void update();
+
+
 public slots:
 private:
 

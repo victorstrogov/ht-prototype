@@ -36,7 +36,7 @@ MtTemplate *ExampleTempateSerrialization::loadTemplate()
 
 void ExampleTempateSerrialization::buildTemplateTree(MtTemplate *t)
 {
-    int headerCount = 3;
+    int headerCount = 1;
     int footerCount = 2;
 
     for(int i = 0; i < headerCount; i++)
@@ -58,9 +58,9 @@ void ExampleTempateSerrialization::buildTemplateTree(MtTemplate *t)
 
 void ExampleTempateSerrialization::buildHeaderTree(MtHeader *header, int recLevel)
 {
-    int headerCount = 3;
+    int headerCount = 1;
     int footerCount = 2;
-    int subheaderCount = 4;
+    int subheaderCount = 2;
     if(recLevel <= 0)
         return;
 

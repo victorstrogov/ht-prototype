@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include <QAbstractItemModel>
+class TableViewSpanController;
 class MtTemplateModel;
 class MtTemplateItem;
 class TreeToTableProxy;
@@ -19,9 +20,12 @@ public:
     ~MainForm();
 private slots:
 void on_current_selection_changed( const QModelIndex & current, const QModelIndex & previous );
+void on_pbAddHeader_clicked();
+
 private:
     MtTemplateModel * m_model;
     TreeToTableProxy * m_proxy;
+    TableViewSpanController * m_spanController;
     Ui::MainForm *ui;
 };
 

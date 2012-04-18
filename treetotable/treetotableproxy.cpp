@@ -119,3 +119,14 @@ Qt::ItemFlags TreeToTableProxy::flags(const QModelIndex &index) const
 {
     return sourceModel()->flags(mapToSource(index));
 }
+
+void TreeToTableProxy::setSourceModel(QAbstractItemModel *sourceModel)
+{
+    QAbstractProxyModel::setSourceModel(sourceModel);
+
+}
+
+void TreeToTableProxy::update()
+{
+    reset();
+}

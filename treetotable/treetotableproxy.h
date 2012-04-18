@@ -19,6 +19,9 @@ public:
     int columnCount(const QModelIndex &parent=QModelIndex()) const;
     QSize span(const QModelIndex & index) const;
     Qt::ItemFlags flags(const QModelIndex &index) const;
+
+    void setSourceModel(QAbstractItemModel *sourceModel);
+    void update();
 protected:
     QModelIndex indexFromRow(int row) const;
     QModelIndex findRow(int & row,QModelIndex searchIn) const;

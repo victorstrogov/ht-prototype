@@ -19,7 +19,7 @@ MainForm::MainForm(QWidget *parent) :
     // прокси модель для представления иеррархических данных в виде таблицы
     m_proxy = new TreeToTableProxy(this);
     // обьект управляющий корректной отрисовкой обьединенных ячеек
-    TableViewSpanController * spanController =
+    m_spanController =
             new TableViewSpanController(this);
     //задаем прокси модели иерархическую модель которая будет представленна в виде таблицы
     m_proxy->setSourceModel(m_model);
@@ -30,9 +30,9 @@ MainForm::MainForm(QWidget *parent) :
     //отображаем табличную модель в табличном представлении
     ui->tableView->setModel(m_proxy);
     //задаем спан контроллеру представление которым он будет управлять
-    spanController->setTableView(ui->tableView);
+    m_spanController->setTableView(ui->tableView);
     //обновляем информацию об обьединенных ячейках
-    spanController->updateSpan();
+    m_spanController->updateSpan();
 
     connect(ui->tableView->selectionModel(),SIGNAL(currentRowChanged(QModelIndex,QModelIndex)),
             this,SLOT(on_current_selection_changed(QModelIndex,QModelIndex)));
@@ -68,3 +68,56 @@ void MainForm::on_current_selection_changed(const QModelIndex &current, const QM
     ui->lbStatus->setText(itemType + " selected - " + item->itemData().at(0)->dataView().toString() );
 }
 
+
+void MainForm::on_pbAddHeader_clicked()
+{
+    QModelIndex current = ui->tableView->selectionModel()->currentIndex();
+    MtTemplateItem * item = m_model->itemFromIndex(m_proxy->mapToSource(current));
+    MtHeader * newHeader = 0;
+    if(!item)return;
+    switch(item->type())
+    {
+        case MtTemplateItem::Header:
+        {
+            MtHeader * header = item->toHeader();
+            newHeader = header->addHeader();
+            newHeader->itemData().at(0)->setData(QVariantList()<<"Inserted in Header");
+            m_model->updateItem(header);
+
+
+        }
+        break;
+        case MtTemplateItem::Subheader:
+    {
+        MtHeader * header = item->parent()->toHeader();
+        newHeader = header->addHeader();
+        newHeader->itemData().at(0)->setData(QVariantList()<<"Inserted for subheader Header");
+        m_model->updateItem(header);
+    }
+        break;
+        case MtTemplateItem::Footer:
+    {
+        MtTemplate * t = item->parent()->toTemplate();
+        MtHeader * header = item->parent()->toHeader();
+        if(header)
+         newHeader= header->addHeader();
+        else
+          newHeader = t->addHeader();
+        newHeader->itemData().at(0)->setData(QVariantList()<<"Inserted Header");
+        m_model->updateItem(header);
+
+    }
+        break;
+        case MtTemplateItem::Template:
+        break;
+    }
+    m_model->update();
+    m_proxy->update();
+    m_spanController->updateSpan();
+    if(newHeader)
+    {
+        ui->tableView->selectionModel()->
+                select(m_proxy->mapFromSource(m_model->findItem(newHeader)),QItemSelectionModel::Select|QItemSelectionModel::Rows);
+
+    }
+}
